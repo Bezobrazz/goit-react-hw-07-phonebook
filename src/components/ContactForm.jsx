@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { StyledForm, StyledLabel, StyledLabelWrapper } from './styled';
 import { Button, TextField } from '@mui/material';
-import { nanoid } from '@reduxjs/toolkit';
 import { Notify } from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../redux/contactsSlice';
 import { selectContacts } from '../redux/selectors';
 import { addContactsThunk } from '../redux/operations';
 

@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
 import { StyledList, StyledListItem, BoldText } from './styled';
 import { Button } from '@mui/material';
-import { Notify } from 'notiflix';
-import { deleteContact } from '../redux/contactsSlice';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectFilter,
   selectContacts,
   selectLoading,
 } from '../redux/selectors';
-import {
-  deletetContacts,
-  deletetContactsThunk,
-  fetchContacts,
-} from '../redux/operations';
+import { deletetContactsThunk, fetchContacts } from '../redux/operations';
 
 const ContactList = () => {
   const contacts = useSelector(selectContacts);
@@ -25,10 +20,11 @@ const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
+  const filteredContacts =
+    contacts &&
+    contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   return (
     <StyledList>
       {loading && <h2>Loading...</h2>}
