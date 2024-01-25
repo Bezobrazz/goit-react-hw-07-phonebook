@@ -6,6 +6,7 @@ import { Notify } from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from '../redux/contactsSlice';
 import { selectContacts } from '../redux/selectors';
+import { addContactsThunk } from '../redux/operations';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -24,7 +25,7 @@ const ContactForm = () => {
         `Contact with name '${name}' already exists in the phonebook.`
       );
     } else {
-      dispatch(addContact({ id: nanoid(), name, number }));
+      dispatch(addContactsThunk({ name, number }));
     }
   };
 

@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteContact, fetchData, isError, isLoading } from './contactsSlice';
+import {
+  addContact,
+  deleteContact,
+  fetchData,
+  isError,
+  isLoading,
+} from './contactsSlice';
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix';
 
@@ -25,6 +31,17 @@ export const deletetContactsThunk = id => async dispatch => {
     await axios.delete(`contacts/${id}`);
     dispatch(deleteContact(id));
     Notify.success('Contact deleted successfully.');
+  } catch (error) {
+    dispatch(isError());
+    Notify.success('Oops! Something went wrong.');
+  }
+};
+
+export const addContactsThunk = body => async dispatch => {
+  try {
+    const { data } = await axios.post(`contacts`, body);
+    dispatch(addContact(data));
+    console.log(data);
   } catch (error) {
     dispatch(isError());
     Notify.success('Oops! Something went wrong.');

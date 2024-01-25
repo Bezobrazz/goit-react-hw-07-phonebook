@@ -32,10 +32,10 @@ const ContactList = () => {
   return (
     <StyledList>
       {loading && <h2>Loading...</h2>}
-      {filteredContacts.map(({ id, name, phone }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <StyledListItem key={id}>
           <div>
-            <BoldText>{name}:</BoldText> {phone}
+            <BoldText>{name}:</BoldText> {number}
           </div>
           <Button
             type="text"
