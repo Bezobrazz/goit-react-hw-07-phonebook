@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   addContactsThunk,
   deletetContactsThunk,
@@ -38,9 +38,16 @@ const contactsSlice = createSlice({
       .addCase(addContactsThunk.fulfilled, (state, action) => {
         state.contacts = state.contacts.unshift(action.payload);
       })
-      .addCase(deletetContactsThunk.rejected, (state, action) => {
-        state.error = action.payload;
-      });
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          deletetContactsThunk.rejected,
+          addContactsThunk.rejected
+        ),
+        (state, action) => {
+          state.error = action.payload;
+        }
+      );
   },
 });
 

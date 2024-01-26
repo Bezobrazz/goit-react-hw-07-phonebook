@@ -3,16 +3,11 @@ import { StyledList, StyledListItem, BoldText } from './styled';
 import { Button } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectFilter,
-  selectContacts,
-  selectLoading,
-} from '../redux/selectors';
+import { selectLoading, selectFilteredContacts } from '../redux/selectors';
 import { deletetContactsThunk, fetchContacts } from '../redux/operations';
 
 const ContactList = () => {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
+  const contacts = useSelector(selectFilteredContacts);
   const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
@@ -20,15 +15,10 @@ const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const filteredContacts =
-    contacts &&
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
   return (
     <StyledList>
       {loading && <h2>Loading...</h2>}
-      {filteredContacts.map(({ id, name, number }) => (
+      {contacts.map(({ id, name, number }) => (
         <StyledListItem key={id}>
           <div>
             <BoldText>{name}:</BoldText> {number}
