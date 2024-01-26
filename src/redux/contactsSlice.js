@@ -36,7 +36,7 @@ const contactsSlice = createSlice({
         );
       })
       .addCase(addContactsThunk.fulfilled, (state, action) => {
-        state.contacts = state.contacts.unshift(action.payload);
+        state.contacts.push(action.payload);
       })
       .addMatcher(
         isAnyOf(
